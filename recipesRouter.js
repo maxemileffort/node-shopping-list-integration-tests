@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
 // Delete recipes (by id)!
 router.delete('/:id', (req, res) => {
   Recipes.delete(req.params.id);
-  console.log(`Deleted shopping list item \`${req.params.ID}\``);
+  console.log(`Deleted recipe \`${req.params.ID}\``);
   res.status(204).end();
 });
 
@@ -64,13 +64,13 @@ router.put('/:id', (req, res) => {
     console.error(message);
     return res.status(400).send(message);
   }
-  console.log(`Updating shopping list item \`${req.params.id}\``);
-  Recipes.update({
+  console.log(`Updating recipe \`${req.params.id}\``);
+  const updatedItem = Recipes.update({
     id: req.params.id,
     name: req.body.name,
     ingredients: req.body.ingredients
   });
-  res.status(204).end();
+  res.status(200).json(updatedItem);
 });
 
 module.exports = router;
